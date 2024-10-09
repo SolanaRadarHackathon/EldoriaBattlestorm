@@ -157,4 +157,3 @@ Enjoy playing **Eldoria Battlestorm**! For any issues or support, please open an
 
 ---
 
-This README now reflects the updated project structure, with details about the client, API, and smart contract files.
