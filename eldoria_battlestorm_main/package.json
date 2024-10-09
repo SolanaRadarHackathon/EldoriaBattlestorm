@@ -1,0 +1,27 @@
+{
+  "name": "echoesofeldoria",
+  "version": "1.0.0",
+  "description": "# admin initializes offset account(init_current_feed) # offset account can be initialized only once # admin can update fee for random number derivation,  # admin can update feed accounts and fall back account( update_current_feed ) # admin initilizes config account (init_config) # init_config can be called only once # admin can update the authrorized admins ( set_config ) # user updates offsets as they call rng program (randomize) # rng program returns a random number to be used in the same transaction",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node client/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faustbrian/node-base58": "^1.0.0",
+    "@metaplex-foundation/mpl-core": "^1.0.2",
+    "@metaplex-foundation/umi": "^0.9.2",
+    "@metaplex-foundation/umi-bundle-defaults": "^0.9.2",
+    "@solana/spl-stake-pool": "^0.7.0",
+    "@solana/spl-token": "^0.3.9",
+    "@solana/web3.js": "^1.87.6",
+    "base-58": "^0.0.1",
+    "borsh": "^0.7.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  }
+}
