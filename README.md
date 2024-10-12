@@ -1,129 +1,159 @@
 
 # Eldoria Battlestorm
 
-## Overview
-This project is a Solana-based NFT minting and transfer system using the Metaplex protocol. It integrates key functionalities such as uploading NFT images, minting NFTs, and transferring ownership using the UMI library and the Metaplex Token Metadata program.
+Welcome to **Eldoria Battlestorm**, a turn-based strategy game built on the Solana blockchain! In this game, players engage in strategic battles using their unique characters to claim victory. The game leverages Solana's fast and secure blockchain to ensure a seamless and fair gaming experience.
 
-## Features
-- **Mint NFTs**: Upload images, set metadata, and mint NFTs on the Solana blockchain.
-- **Transfer NFTs**: Easily transfer ownership of NFTs to other users on Solana.
-- **Solana Devnet Support**: Tested on the Solana devnet environment.
+## Table of Contents
 
-## Project Structure
-```bash
-.
-├── dist
-│   └── src
-│       ├── controller
-│       │   └── solana.controller.js     # Handles NFT minting requests (JavaScript compiled)
-│       ├── router
-│       │   └── solana.router.js         # Defines API routes for Solana interaction (JavaScript compiled)
-│       ├── utils
-│       │   ├── nft_image.js             # Utility for uploading NFT images (JavaScript compiled)
-│       │   ├── nft_metadata.js          # Utility for setting NFT metadata (JavaScript compiled)
-│       │   ├── nft_mint.js              # Utility for minting NFTs (JavaScript compiled)
-│       │   └── nft_transfer.js          # Utility for transferring NFTs (JavaScript compiled)
-│       ├── wallet
-│       │   └── index.js                 # Wallet configuration (JavaScript compiled)
-│       └── server.js                    # Server logic (JavaScript compiled)
-├── src
-│   ├── controller
-│   │   └── solana.controller.ts         # Handles NFT minting requests
-│   ├── router
-│   │   └── solana.router.ts             # Defines API routes for Solana interaction
-│   ├── utils
-│   │   ├── nft_image.ts                 # Utility for uploading NFT images
-│   │   ├── nft_metadata.ts              # Utility for setting NFT metadata
-│   │   ├── nft_mint.ts                  # Utility for minting NFTs
-│   │   └── nft_transfer.ts              # Utility for transferring NFTs
-│   ├── wallet
-│   │   └── wallet.json                  # Solana wallet for signing transactions
-│   └── server.ts                        # Starts the server
-├── package.json                         # Node project dependencies
-├── package-lock.json                    # Lockfile for dependencies
-├── tsconfig.json                        # TypeScript configuration
-└── rerun.sh                             # Script to rerun the server
-```
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Game Overview](#game-overview)
+- [Smart Contracts](#smart-contracts)
+- [Building and Running](#building-and-running)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- Typescript
-- Solana CLI
-- A funded Solana devnet wallet
+
+Before you begin, ensure you have the following installed:
+
+- **Rust and Cargo**: [Install Rust](https://www.rust-lang.org/tools/install)
+- **Solana CLI**: [Install Solana CLI](https://docs.solana.com/cli/install-solana-cli-tools)
+- **Node.js and npm**: [Install Node.js](https://nodejs.org/)
+- **Unity** (for mobile): [Install Unity](https://unity.com/)
 
 ### Installation
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/eldoria-battlestorm.git
-    cd eldoria-battlestorm
-    ```
 
-2. Install dependencies:
-    ```bash
-    npm install
-    ```
+Clone the repository:
 
-3. Create a `.env` file and configure it for your RPC URL, wallet, etc.
-    ```bash
-    SOLANA_RPC_URL=https://api.devnet.solana.com
-    ```
-
-4. Ensure your Solana wallet has devnet tokens:
-    ```bash
-    solana airdrop 1
-    ```
-
-### Running the Server
-To start the server:
-```bash
-npm run start
+```sh
+git clone https://github.com/yourusername/eldoria-battlestorm.git
+cd eldoria-battlestorm
 ```
 
-The server will be running on `http://localhost:8000`.
+Install the dependencies:
 
-### API Endpoints
-
-- **POST /solana/nft**
-  - Create and mint an NFT.
-  - **Body parameters**:
-    - `name` (string): Name of the NFT.
-    - `symbol` (string): Symbol for the NFT.
-    - `description` (string): Description for the NFT.
-    - `image` (string): Base64-encoded image data.
-    - `receiver` (string): Solana wallet address of the receiver.
-
-- **POST /solana/transfer**
-  - Transfer an NFT to a new owner.
-  - **Body parameters**:
-    - `mint` (string): Mint address of the NFT.
-    - `receiver` (string): New owner's wallet address.
-
-### Example Usage
-
-#### Minting an NFT:
-```bash
-curl -X POST http://localhost:8000/solana/nft   -H "Content-Type: application/json"   -d '{
-    "name": "My NFT",
-    "symbol": "MNFT",
-    "description": "This is my first NFT",
-    "image": "base64-image-data-here",
-    "receiver": "receiver-public-key-here"
-  }'
+```sh
+cargo build-bpf
 ```
 
-#### Transferring an NFT:
-```bash
-curl -X POST http://localhost:8000/solana/transfer   -H "Content-Type: application/json"   -d '{
-    "mint": "mint-address-here",
-    "receiver": "new-owner-public-key-here"
-  }'
+## Project Structure
+
+The **Eldoria Battlestorm** repository is organized into several key directories and files, reflecting different aspects of the project:
+
+```
+/EldoriaBattlestorm
+├── client/                       # Client code for the Unity-based mobile game
+│   └── ...                       # Unity assets, scripts, and configuration
+│
+├── echoes_of_eldoria_api/         # API built using Flask for backend logic
+│   ├── app.py                    # Main Flask server
+│   ├── Dockerfile                # Docker setup for the API
+│   ├── requirements.txt          # Dependencies for the Flask API
+│   └── README.md                 # Documentation for the API
+│
+├── eldoria_battlestorm_main/      # Smart contracts and main game logic (Rust/TS)
+│   ├── src/                      # Source code for Rust smart contracts
+│   │   ├── entrypoint.rs          # Solana program entrypoint
+│   │   ├── instruction.rs         # Instruction parsing and handling
+│   │   ├── processor.rs           # Main logic for game processing
+│   │   ├── state.rs               # Data structures for game state
+│   │   ├── error.rs               # Error handling for the program
+│   └── Cargo.toml                # Rust project dependencies and configuration
+│
+├── solana_nft/                    # NFT-related functionality for Solana blockchain
+│   ├── src/                      # NFT-related source code and utilities
+│   │   ├── controller/            # Controller logic for NFT creation and management
+│   │   ├── router/                # Routes for handling NFT-related requests
+│   │   └── utils/                 # Utility functions for image upload, minting, and transfer
+│   └── wallet/                   # Solana wallet for transaction management
+│
+├── LICENSE                       # License for the project
+├── README.md                     # Main project documentation
+└── package.json                  # Node.js configuration and dependencies
 ```
 
-### Acknowledgements
-- Built using the [UMI](https://github.com/metaplex-foundation/umi) and [Metaplex Token Metadata](https://github.com/metaplex-foundation/metaplex-program-library/tree/master/token-metadata) libraries.
-- Powered by [Solana](https://solana.com) blockchain.
+## Game Overview
 
-### License
-This project is licensed under the MIT License.
+Eldoria Battlestorm is a turn-based strategy game where players control a team of characters, each with unique abilities. The objective is to strategically outmaneuver your opponent and deplete their characters' health to win the game.
+
+### Characters
+
+Each character has the following attributes:
+
+- **mint**: Unique identifier for the character.
+- **health**: Health points of the character.
+- **hit**: Attack power of the character.
+- **xp**: Experience points of the character.
+
+### Game State
+
+The game state is managed by the `GameState` struct, which includes:
+
+- **is_initialized**: Indicates if the game is initialized.
+- **initializer**: Public key of the player who initialized the game.
+- **guest**: Public key of the guest player.
+- Character attributes for both initializer and guest.
+- **last_play_time**: Timestamp of the last move.
+- **whose_turn**: Indicates whose turn it is to play.
+
+### Actions
+
+Players can perform actions such as:
+
+- **Attack**: Engage in combat with the opponent's characters.
+- **Move**: Move characters strategically on the board (implementation details pending).
+
+## Smart Contracts
+
+The core game logic is implemented in Rust using Borsh for serialization. The key structs are:
+
+- `RandomNumber`: Represents a random number for game mechanics.
+- `GameState`: Manages the state of the game.
+- `Character`: Defines the attributes of a character.
+- `Attack`: Represents an attack action.
+- `PlayerAccount`: Tracks player stats.
+
+## Building and Running
+
+Compile the smart contracts:
+
+```sh
+cargo build-bpf
+```
+
+Deploy the contracts to the Solana blockchain:
+
+```sh
+solana program deploy path/to/your_program.so
+```
+
+Run the Unity frontend (if applicable):
+
+```sh
+npm install
+npm start
+```
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to **Eldoria Battlestorm**, follow these steps:
+
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/YourFeature`).
+3. Commit your changes (`git commit -am 'Add some feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Create a new Pull Request.
+
+## License
+
+Eldoria Battlestorm is licensed under the MIT License. See `LICENSE` for more information.
+
+---
+
+Enjoy playing **Eldoria Battlestorm**! For any issues or support, please open an issue on GitHub.
+
+---
+
